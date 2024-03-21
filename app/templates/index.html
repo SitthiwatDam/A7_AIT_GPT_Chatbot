@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIT-GPT</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chat-box {
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .user-message {
+            background-color: #d1ecf1;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            max-width: 70%;
+            align-self: flex-end; /* Align user messages to the right */
+        }
+        .bot-message {
+            background-color: #cce5ff;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            max-width: 70%;
+            align-self: flex-start; /* Align bot messages to the left */
+        }
+        .input-box {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .work-section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card text-center work-section">
+            <div class="card-header">
+                AIT-GPT by <a href="https://github.com/SitthiwatDam">Sitthiwat Damrongpreechar</a>
+            </div>
+            <div class="card-body" id="myDIV">
+                <h5 class="card-title">Using GPT-2 Model and LangChain Rag Technique</h5>
+                <p class="card-text">This AI assistant utilizes the GPT-2 model combined with the LangChain Rag technique to generate responses. Due to hardware limitations, the output may not always be accurate. For improved results, I using the 'Fastchat-t5-3B-v.1.0' model. Feel free to check out my Jupyter Notebook for more information.</p>
+            </div>
+        </div>
+        <h1>AIT-GPT</h1>
+        <div id="chat-box" class="chat-box"></div>
+        <form id="message-form" class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <input type="submit" value="Send">
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('#message-form').onsubmit = function() {
+                const messageInput = document.querySelector('#user-input').value;
+                document.querySelector('#user-input').value = '';
+                
+                const userMessage = document.createElement('div');
+                userMessage.className = 'user-message';
+                userMessage.innerHTML = messageInput;
+                document.querySelector('#chat-box').appendChild(userMessage);
+
+                fetch('/get-response', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        message: messageInput
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'bot-message';
+                    botMessage.innerHTML = data.message;
+                    document.querySelector('#chat-box').appendChild(botMessage);
+                });
+
+                return false;
+            };
+        });
+    </script>
+</body>
+</html>

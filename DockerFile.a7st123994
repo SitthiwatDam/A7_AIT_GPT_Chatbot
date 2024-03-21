@@ -9,10 +9,24 @@ RUN pip3 install numpy
 RUN pip3 install pandas
 RUN pip3 install Flask==3.0.1
 RUN pip3 install matplotlib
-RUN pip3 install -U spacy
-RUN python -m spacy download en_core_web_lg
 RUN pip3 install torch
 RUN pip3 install torchtext
+RUN pip3 install protobuf
+#langchain library
+RUN pip3 install langchain==0.1.0
+# #LLM
+RUN pip3 install accelerate==0.25.0
+RUN pip3 install transformers==4.36.2
+RUN pip3 install bitsandbytes==0.41.2
+#Text Embedding
+RUN pip3 install sentence-transformers==2.2.2
+RUN pip3 install InstructorEmbedding==1.0.1
+# vectorstore to local
+RUN pip3 install pymupdf==1.23.8
+RUN pip3 install faiss-gpu==1.7.2
+RUN pip3 install faiss-cpu==1.7.4
+
+
 
 # Copy the entire project to the working directory
 COPY ./app /root/app  
