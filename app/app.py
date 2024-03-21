@@ -101,13 +101,35 @@ chain = ConversationalRetrievalChain(
 def index():
     return render_template('index.html')
 
+# @app.route('/get-response', methods=['POST'])
+# def get_response():
+#     user_message = request.json['message']
+#     print("User message:   ",user_message)
+#     bot_response = chain({"question":user_message})
+#     print("AIT-GPT is response:   ",bot_response['answer'],"++++++", bot_response['source_documents'])
+#     return jsonify({'message': bot_response['answer']})
+
 @app.route('/get-response', methods=['POST'])
 def get_response():
     user_message = request.json['message']
     print("User message:   ",user_message)
     bot_response = chain({"question":user_message})
-    print("AIT-GPT is response:   ",bot_response['answer'])
-    return jsonify({'message': bot_response['answer']})
+
+
+    # Extracting relevant information from source documents
+    source_docs_info = []
+    if bot_response['source_documents']:
+        for doc in bot_response['source_documents']:
+            doc_info = {
+                'source': doc.metadata['source'],
+                'file_path': doc.metadata['file_path'],
+                'page': doc.metadata['page']
+            }
+            source_docs_info.append(doc_info)
+    print("AIT-GPT is response:   ",bot_response['answer'],"\n", source_docs_info)
+    return jsonify({'message': bot_response['answer'], 'source_documents': source_docs_info})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
