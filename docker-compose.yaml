@@ -1,0 +1,14 @@
+version: '3'
+services:
+  engine_search:
+    image: sittiwat555/aitgpt:lastest
+    build:
+      context: .
+      dockerfile: DockerFile.a7st123994
+    ports:
+      - 5000:5000
+    volumes:
+      - ./app:/root/app
+
+
+  
