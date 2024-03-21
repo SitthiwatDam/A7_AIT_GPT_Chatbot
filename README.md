@@ -30,6 +30,7 @@ This web application is constructed using Flask, a widely-used Python web framew
 
 5. **Chatting with AIT-GPT:**
     - Enter your message in the text area.
+    - Click "Send" button to submit the user prompt.
     - The AIT-GPT chatbot will respond with relevant information about AIT.
 
 6. **Stop the application when done:**
