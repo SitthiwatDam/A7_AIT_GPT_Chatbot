@@ -23,6 +23,7 @@ This web application is constructed using Flask, a widely-used Python web framew
     ```bash
     docker-compose up -d
     ```
+    (Note: Please be patient as it may take a few minutes to load the model, especially during the initial setup.)
 
 4. **Access the application:**
     - Open your web browser and go to [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
