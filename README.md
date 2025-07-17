@@ -1,4 +1,4 @@
-# A7_AIT_GPT_Chatbot
+# AIT GPT Chatbot
 
 ## Langchain-RAG with "Fastchat-T5-3B-v1.0" model
 We utilized the Langchain-RAG technique with the **"Fastchat-T5-3B-v1.0"** model to develop the AIT-GPT chatbot. The entire RAG process is documented in detail within the `Langchain_RAG.ipynb` notebook, providing comprehensive instructions for further exploration and development.
